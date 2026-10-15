@@ -848,5 +848,41 @@
       "start": 0,
       "end": 91
     }
+  },
+  {
+    "fixture": "agy--v135-multi-red.txt",
+    "detector": "menu",
+    "agent": "agy",
+    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n> 1. [x] Red\n  2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
+  },
+  {
+    "fixture": "agy--v135-slash-down.txt",
+    "detector": "menu",
+    "agent": "agy",
+    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n  /add-dir                                Add a directory to the workspace\n> /agents                                 List available custom agents\n  /artifact                               View and review artifacts\n  /btw                                    Ask a side question without interrupting the current task\n  /changelog                              Show release notes and changes\n   ↓ 80 more\n\n  ↑/↓ Navigate · enter Select · tab Complete"
+  },
+  {
+    "fixture": "agy--v135-multi-down.txt",
+    "detector": "menu",
+    "agent": "agy",
+    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n  1. [x] Red\n> 2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
+  },
+  {
+    "fixture": "agy--v135-multi-question.txt",
+    "detector": "menu",
+    "agent": "agy",
+    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n> 1. [ ] Red\n  2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
+  },
+  {
+    "fixture": "agy--v135-slash.txt",
+    "detector": "menu",
+    "agent": "agy",
+    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n> /add-dir                                Add a directory to the workspace\n  /agents                                 List available custom agents\n  /artifact                               View and review artifacts\n  /btw                                    Ask a side question without interrupting the current task\n  /changelog                              Show release notes and changes\n   ↓ 80 more\n\n  ↑/↓ Navigate · enter Select · tab Complete"
+  },
+  {
+    "fixture": "agy--v135-multi-red-green.txt",
+    "detector": "menu",
+    "agent": "agy",
+    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n  1. [x] Red\n> 2. [x] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
   }
 ]

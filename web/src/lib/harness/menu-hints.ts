@@ -57,6 +57,7 @@ export function menuKeyFor(token: string): string | null {
   const raw = token.trim();
   const lower = raw.toLowerCase();
   if (lower === "enter") return "Enter";
+  if (lower === "space") return "Space";
   if (lower === "esc" || lower === "escape") return "Escape";
   if (lower === "tab") return "Tab";
   if (lower === "shift+tab") return "shift+tab";
