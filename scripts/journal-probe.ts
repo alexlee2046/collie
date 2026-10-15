@@ -83,6 +83,10 @@ const MAX_CANDIDATES = 12;
  */
 export function refFor(agent: string, path: string): AgentSessionRef | null {
   if (agent === "pi") return { kind: "path", value: path };
+  if (agent === "agy") {
+    const match = /\/([0-9a-f-]{36})\/\.system_generated\/logs\/transcript\.jsonl$/i.exec(path);
+    return match?.[1] ? { kind: "id", value: match[1] } : null;
+  }
   if (agent === "grok") {
     const slash = path.lastIndexOf("/");
     if (slash <= 0) return null;

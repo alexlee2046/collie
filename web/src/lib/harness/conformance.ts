@@ -143,7 +143,12 @@ function trailingOutput(): StyledLine[] {
  *  the top of the wrapped group on a narrow one. Falls back to the last non-blank row for a tail
  *  that is not a key-hint footer at all. */
 function footerTop(lines: StyledLine[]): number {
-  return readKeyHintFooter(lines.map(lineText))?.startLine ?? lastNonBlank(lines);
+  const texts = lines.map(lineText);
+  const end = lastNonBlank(lines);
+  // agy 1.3.5 prints its hint bar above a separate status row, without the word 'to'.
+  if (/^esc to cancel\b/i.test(texts[end]?.trim() ?? "") &&
+      (texts[end - 1]?.trim() ?? "").startsWith("↑/↓ Navigate · ")) return end - 1;
+  return readKeyHintFooter(texts)?.startLine ?? end;
 }
 
 /** The index of the last non-blank line — where every tail-anchored grammar's footer sits. */

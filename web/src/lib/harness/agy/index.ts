@@ -1,6 +1,7 @@
 import { trimTrailingBlank, type Block, type StyledLine } from "../../blocks";
 import type { HarnessAdapter } from "../types";
 import { detectPromptSelectRegion } from "./prompt-select";
+import { detectMenuRegion } from "./menu";
 import { extractInputDraft, extractStatusLines, hasInputBox, stripChrome } from "./chrome";
 
 export function agyBuildBlocks(lines: StyledLine[]): Block[] {
@@ -13,6 +14,14 @@ export function agyBuildBlocks(lines: StyledLine[]): Block[] {
     return blocks;
   }
 
+  const menu = detectMenuRegion(lines);
+  if (menu) {
+    const before = trimTrailingBlank(lines.slice(0, menu.startLine));
+    return [
+      ...(before.length ? [{ kind: "raw" as const, lines: before }] : []),
+      { kind: "menu", menu: menu.model, lines: lines.slice(menu.startLine) },
+    ];
+  }
   return [{ kind: "raw", lines: stripChrome(lines) }];
 }
 

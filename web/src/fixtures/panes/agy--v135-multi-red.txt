@@ -1,0 +1,11 @@
+[0m[38;5;8m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+
+[0m[1mQuestion 1/1: Which test colors?[0m
+
+[0m[38;5;12m> 1. [x] Red[0m
+  2. [ ] Green
+  3. [ ] Blue
+  4. Write-in...
+
+  [0m[1m[38;5;12m↑/↓[0m[38;5;8m Navigate · [0m[1m[38;5;12mspace[0m[38;5;8m Toggle · [0m[1m[38;5;12menter[0m[38;5;8m Submit · [0m[1m[38;5;12mesc[0m[38;5;8m Skip[0m
+[0m[38;5;8mesc to cancel                                                                     [0m[38;5;2maccept-edits[0m[2m · Gemini 4 Argon · medium[0m

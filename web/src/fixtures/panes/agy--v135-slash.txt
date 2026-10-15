@@ -1,0 +1,12 @@
+[0m[38;5;8m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+[0m[38;5;12m>[0m /
+[0m[38;5;8m────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────[0m
+[0m[38;5;12m> /add-dir                              [0m  [0m[2mAdd a directory to the workspace[0m
+  /agents                                 [0m[2mList available custom agents[0m
+  /artifact                               [0m[2mView and review artifacts[0m
+  /btw                                    [0m[2mAsk a side question without interrupting the current task[0m
+  /changelog                              [0m[2mShow release notes and changes[0m
+[0m[2m   ↓ 80 more[0m
+
+  [0m[1m[38;5;12m↑/↓[0m[38;5;8m Navigate · [0m[1m[38;5;12menter[0m[38;5;8m Select · [0m[1m[38;5;12mtab[0m[38;5;8m Complete[0m
+[0m[38;5;8mesc to cancel                                                                     [0m[38;5;2maccept-edits[0m[2m · Gemini 4 Argon · medium[0m
