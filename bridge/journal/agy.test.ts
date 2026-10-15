@@ -3,6 +3,7 @@ import { mkdtemp, mkdir, realpath, rm, symlink, writeFile } from "node:fs/promis
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { AgyTranscriptSource, createAgyReducer, parseAgyTranscript } from "./agy.ts";
+import { PENDING_MAX } from "./reduce.ts";
 
 const row = (step_index: number, type: string, fields = {}) => JSON.stringify({ step_index, type, status: "DONE", created_at: "2026-10-15T00:00:00Z", ...fields });
 const id = "11111111-2222-4333-8444-555555555555";
@@ -35,6 +36,21 @@ describe("agy transcript", () => {
     expect(update.added).toHaveLength(0);
     expect(update.changed).toEqual([entry.uuid]);
     expect(entry.parts).toEqual([{ kind: "text", text: "complete" }]);
+  });
+  test("forgets old step bodies while keeping recent steps updateable", () => {
+    const reducer = createAgyReducer();
+    const first = reducer.push(row(0, "PLANNER_RESPONSE", { content: "old" })).added[0]!;
+    for (let step = 1; step <= PENDING_MAX; step++) {
+      reducer.push(row(step, "PLANNER_RESPONSE", { content: "fixture" }));
+    }
+    const recent = reducer.push(row(PENDING_MAX, "PLANNER_RESPONSE", { content: "updated" }));
+    expect(recent.added).toHaveLength(0);
+    expect(recent.changed).toEqual([`agy-${PENDING_MAX}`]);
+    const replay = reducer.push(row(0, "PLANNER_RESPONSE", { content: "replayed" }));
+    expect(replay.changed).toHaveLength(0);
+    expect(replay.added[0]!.uuid).toBe(first.uuid);
+    expect(replay.added[0]).not.toBe(first);
+    expect(first.parts).toEqual([{ kind: "text", text: "old" }]);
   });
   test("preserves upstream truncation and counts unknown row types", () => {
     const reducer = createAgyReducer();

@@ -4,7 +4,7 @@
 import { join } from "node:path";
 import type { JsonValue } from "../json.ts";
 import { containedRealpath, loadTail, readSinceFile, rootList, statFile } from "./files.ts";
-import { createUnknownCounter, NO_CHANGE, noQueue, parseWith, type RowReducer } from "./reduce.ts";
+import { createUnknownCounter, NO_CHANGE, noQueue, parseWith, rememberPending, type RowReducer } from "./reduce.ts";
 import { clamp, MAX_TEXT_CHARS, stripAnsi, summarizeToolInput } from "./text.ts";
 import { classifyToolCall } from "./tool-call.ts";
 import type { AgentSessionRef, JournalAdapter, TranscriptEntry, TranscriptPart, TranscriptSource } from "./types.ts";
@@ -14,6 +14,8 @@ export function createAgyReducer(): RowReducer {
     rows: ["USER_INPUT", "PLANNER_RESPONSE", "GENERIC", "SYSTEM_MESSAGE", "CHECKPOINT"],
     roles: [], parts: [],
   });
+  // Keep only a bounded recent step index: otherwise trimmed live turns retain their full bodies
+  // here forever. A step repeated after eviction is re-emitted; the live window upserts by uuid.
   const entries = new Map<string, TranscriptEntry>();
   return {
     queued: noQueue,
@@ -56,7 +58,7 @@ export function createAgyReducer(): RowReducer {
         return { added: [], changed: [uuid] };
       }
       const entry: TranscriptEntry = { uuid, ts, role, parts };
-      entries.set(uuid, entry);
+      rememberPending(entries, uuid, entry);
       return { added: [entry], changed: [] };
     },
   };
