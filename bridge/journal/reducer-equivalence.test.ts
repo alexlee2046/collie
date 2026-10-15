@@ -2,6 +2,7 @@ import { describe, expect, test } from "bun:test";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
+import { createAgyReducer, parseAgyTranscript } from "./agy.ts";
 import { KNOWN_HARNESS_NAMES } from "./registry.ts";
 import { createLineFeeder, type RowReducer } from "./reduce.ts";
 import { createClaudeReducer, parseClaudeTranscript } from "./claude.ts";
@@ -97,6 +98,7 @@ function expectEquivalent(make: () => RowReducer, parse: (text: string) => Trans
  * equivalence proof is an adapter whose tail nobody has checked.
  */
 const COVERED = [
+  "agy",
   "claude",
   "codex",
   "opencode",
@@ -106,6 +108,16 @@ const COVERED = [
   "muse",
   "openclaw",
 ] as const;
+
+test("agy: whole, row and torn-stream readings agree", () => {
+  const text = [
+    { step_index: 0, type: "USER_INPUT", content: "你好\\nfixture" },
+    { step_index: 1, type: "PLANNER_RESPONSE", content: "partial" },
+    { step_index: 1, type: "PLANNER_RESPONSE", content: "complete" },
+    { step_index: 2, type: "GENERIC", content: "output" },
+  ].map(row => JSON.stringify(row)).join("\n");
+  expectEquivalent(createAgyReducer, parseAgyTranscript, text);
+});
 
 test("every harness the registry knows has an equivalence section here", () => {
   expect([...KNOWN_HARNESS_NAMES].toSorted()).toEqual([...COVERED].toSorted());

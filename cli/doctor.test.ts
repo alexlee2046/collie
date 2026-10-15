@@ -405,6 +405,7 @@ describe("collie doctor — the contract", () => {
       "beacon-hooks-claude",
       "beacons",
       "herdr-version",
+      "integration-agy",
       "integration-claude",
       "integration-codex",
       "integration-grok",
@@ -414,6 +415,7 @@ describe("collie doctor — the contract", () => {
       "integration-opencode",
       "integration-pi",
       "integration-omp",
+      "integration-antigravity",
       // Not on Windows: Herdr's hooks there are PowerShell (M43 spec 08).
       ...(HOST.platform === "win32" ? [] : ["hook-python3"]),
       "agent-sessions",

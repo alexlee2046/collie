@@ -557,6 +557,15 @@ export const CONFIG_SETTINGS: readonly ConfigSetting[] = [
 
   // ── journal ────────────────────────────────────────────────────────────────
   {
+    key: "agy_root",
+    env: "COLLIE_AGY_ROOT",
+    section: "journal",
+    kind: "roots",
+    default: [],
+    doc: "Antigravity CLI brain directory. Empty takes ~/.gemini/antigravity-cli/brain.",
+    configField: "journalRoots",
+  },
+  {
     key: "transcript_root",
     env: "COLLIE_TRANSCRIPT_ROOT",
     section: "journal",

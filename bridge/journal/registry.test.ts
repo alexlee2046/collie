@@ -27,8 +27,9 @@ const roots = {
 };
 
 describe("buildJournalRegistry", () => {
-  test("serves the eight verified harnesses", () => {
+  test("serves the nine verified harnesses", () => {
     expect(journalAgents(buildJournalRegistry(roots))).toEqual([
+      "agy",
       "claude",
       "codex",
       "grok",

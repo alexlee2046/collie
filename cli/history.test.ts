@@ -358,8 +358,8 @@ describe("the history section", () => {
   test("no journal root on disk warns, and a present-but-unlistable one says which", async () => {
     const none = await run({ files: {} });
     expect(none.get("journal-roots")?.status).toBe("warn");
-    // NINE, not eight: eight agents, and pi has two roots (the omp home and pi's own).
-    expect(none.get("journal-roots")?.detail).toContain("none of the 9 journal roots is there");
+    // Ten roots: nine agents, and pi has both omp and pi homes.
+    expect(none.get("journal-roots")?.detail).toContain("none of the 10 journal roots is there");
 
     // `list` answers `[]` for a directory this user cannot read AND for an empty one; the finding
     // says both, because the seam cannot tell them apart and a doctor may not guess.

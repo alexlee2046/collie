@@ -940,6 +940,7 @@ describe("solo zero-tax — config", () => {
     expect(keys).toEqual([
       "COLLIE_ACCESS_AUD",
       "COLLIE_ACCESS_TEAM",
+      "COLLIE_AGY_ROOT",
       "COLLIE_ALLOWED_ORIGINS",
       "COLLIE_ALLOW_ANY_HOST",
       "COLLIE_ALLOW_NON_LOOPBACK_BIND",

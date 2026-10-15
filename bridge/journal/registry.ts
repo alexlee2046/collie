@@ -10,6 +10,7 @@
 // LIVE MIRROR; this one owns reading an on-disk log. A harness can plausibly have one without the
 // other.
 
+import { agyJournal } from "./agy.ts";
 import { claudeJournal } from "./claude.ts";
 import { codexJournal } from "./codex.ts";
 import { durableJournal } from "./durable.ts";
@@ -31,6 +32,8 @@ import type { JournalAdapter } from "./types.ts";
  * an adapter still accepts a bare string so one-root callers read unchanged.
  */
 export interface JournalRoots {
+  /** Antigravity CLI brain directory, keyed by reported session UUID. */
+  agy?: readonly string[];
   /** Claude Code's `~/.claude/projects`, one per config dir. */
   claude: readonly string[];
   /** Codex's `$CODEX_HOME/sessions`. */
@@ -65,6 +68,7 @@ export interface JournalRoots {
  */
 export function buildJournalRegistry(roots: JournalRoots): Record<string, JournalAdapter> {
   const adapters: JournalAdapter[] = [
+    agyJournal(roots.agy ?? []),
     claudeJournal(roots.claude),
     codexJournal(roots.codex),
     piJournal(roots.pi),
@@ -90,7 +94,7 @@ export function buildJournalRegistry(roots: JournalRoots): Record<string, Journa
  * An alias never adds an adapter, so it is absent from {@link KNOWN_HARNESS_NAMES}: that list
  * answers "which adapters does this build have", and the answer is still eight.
  */
-export const AGENT_ALIASES = { omp: "pi" } as const;
+export const AGENT_ALIASES = { omp: "pi", antigravity: "agy" } as const;
 
 /**
  * Agents that report their session to Herdr on the FIRST PROMPT, not when they start (issue #294).
