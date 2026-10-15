@@ -1,4 +1,7 @@
 import { describe, expect, it, beforeEach, vi } from "vitest";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { detectMultiSelectRegion } from "./harness/agy/multi-select";
 
 // The multi-select choreography engine: the entry guard + the Submit macro (walk the pointer DOWN
 // onto "Submit", re-reading each step, then Enter) and the one-keystroke intents (toggle / escape /
@@ -149,6 +152,25 @@ beforeEach(() => {
   mockFetchPane.mockReset();
   mockSendKeys.mockReset();
   mockSendKeys.mockResolvedValue({ ok: true });
+});
+
+describe("agy's measured native checkbox actions", () => {
+  const text = readFileSync(join(import.meta.dirname, "../fixtures/panes/agy--v135-multi-question.txt"), "utf8");
+  const m = detectMultiSelectRegion(splitLines(parseAnsi(text)))!.model;
+  it.each([
+    [{ kind: "toggle", n: 2 } as const, ["2"]],
+    [{ kind: "advance" } as const, ["Enter"]],
+    [{ kind: "cancel" } as const, ["Escape"]],
+  ])("binds %j to the freshly read question", async (intent, keys) => {
+    script(text);
+    expect(await submitMultiSelectIntent({ ...base, agent: "agy", multi: m, intent })).toEqual({ status: "sent" });
+    expect(mockSendKeys.mock.calls).toEqual([["w1:p1", keys, undefined, m.regionSignature]]);
+  });
+  it("refuses submitting a set that changed after rendering", async () => {
+    script(readFileSync(join(import.meta.dirname, "../fixtures/panes/agy--v135-multi-red.txt"), "utf8"));
+    expect(await submitMultiSelectIntent({ ...base, agent: "agy", multi: m, intent: { kind: "advance" } })).toEqual({ status: "changed" });
+    expect(keysSent()).toEqual([]);
+  });
 });
 
 describe("multiSelectEquals / multiSelectIdentity", () => {

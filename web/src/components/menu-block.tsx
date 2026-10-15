@@ -104,7 +104,7 @@ export function MenuBlock({ menu, lines, onAction, disabled }: MenuBlockProps) {
       aria-label={label}
       disabled={locked}
       onClick={() => press(id, { keys, nav: true })}
-      className="flex h-9 flex-1 items-center justify-center rounded-lg border border-border bg-secondary text-muted-foreground shadow-sm transition-colors active:border-primary/50 active:bg-primary/5 disabled:opacity-60"
+      className="flex min-h-11 flex-1 items-center justify-center rounded-lg border border-border bg-secondary text-muted-foreground shadow-sm transition-colors active:border-primary/50 active:bg-primary/5 disabled:opacity-60"
     >
       {sending === id ? spinner : icon}
     </button>
@@ -208,7 +208,7 @@ export function MenuBlock({ menu, lines, onAction, disabled }: MenuBlockProps) {
                 type="button"
                 disabled={locked}
                 onClick={() => press(id, { keys: action.keys, nav: false })}
-                className="font-content flex w-full items-center justify-center gap-2 rounded-lg border border-primary/60 bg-primary/15 px-3 py-2 text-sm font-medium text-foreground transition-colors active:bg-primary/25 disabled:opacity-60"
+                className="font-content flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-primary/60 bg-primary/15 px-3 py-2 text-sm font-medium text-foreground transition-colors active:bg-primary/25 disabled:opacity-60"
               >
                 {sending === id ? spinner : null}
                 {action.label}
@@ -225,7 +225,7 @@ export function MenuBlock({ menu, lines, onAction, disabled }: MenuBlockProps) {
                 type="button"
                 disabled={locked}
                 onClick={() => press(id, { keys: action.keys, nav: false })}
-                className="font-content flex w-full items-center justify-center gap-2 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors active:bg-muted disabled:opacity-60"
+                className="font-content flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground transition-colors active:bg-muted disabled:opacity-60"
               >
                 {sending === id ? spinner : null}
                 {action.label}

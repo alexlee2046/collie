@@ -369,6 +369,7 @@ export const de: Dictionary = {
   "chat.scrollback.loading": "Wird geladen…",
   "chat.scrollback.noSessionReported":
     "{agent} hat keine Sitzung an Herdr gemeldet. Herdr-Integration installieren oder aktualisieren und den Agenten in diesem Pane neu starten.",
+  "chat.scrollback.noSessionBeforeMessage": "{agent} meldet die Sitzung nach der ersten Nachricht. Der Verlauf ist noch nicht verfügbar. Fehlt er auch nach einer Antwort, prüfe die Herdr-Integration.",
   "chat.scrollback.noSessionYet":
     "{agent} meldet seine Sitzung erst nach seiner ersten Nachricht an Herdr, daher gibt es noch keinen Verlauf. Wenn dieser Hinweis bestehen bleibt, nachdem {agent} geantwortet hat, überprüfen Sie die Hooks mit /hooks in {agent} oder aktualisieren Sie die Herdr-Integration und starten Sie den Agenten neu.",
   "chat.stale.member": "Dieser Rechner verwendet eine ältere Collie-Version. Aktualisieren Sie ihn, um den Verlauf hier zu verfolgen.",

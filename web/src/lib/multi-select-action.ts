@@ -157,8 +157,10 @@ async function dispatchIntent(
     if (args.multi.submit === "keys") return guardedKey(args, args.multi.submitKeys);
     return guardedKey(args, ["1"]);
   }
-  // cancel
-  if (args.multi.phase !== "review") return { status: "changed" };
+  // cancel: some checkbox questions name a fixed dismissal key without a review screen.
+  if (args.multi.phase === "checkbox") {
+    return args.multi.cancelKeys ? guardedKey(args, args.multi.cancelKeys) : { status: "changed" };
+  }
   if (args.multi.submit === "pointer") return runReviewMacro(args, "cancel");
   if (args.multi.submit === "keys") return guardedKey(args, args.multi.cancelKeys);
   return guardedKey(args, ["2"]);

@@ -55,7 +55,7 @@ export const JOURNAL_AGENT_NAMES: ReadonlySet<string> = new Set([
  *  Codex fires the hook Herdr's integration listens on only when its first prompt is submitted.
  *  Must come after `JOURNAL_AGENT_NAMES` in this file: registry.test.ts reads the first set as that
  *  one. */
-const FIRST_PROMPT_AGENTS: ReadonlySet<string> = new Set(["codex"]);
+const FIRST_PROMPT_AGENTS: ReadonlySet<string> = new Set(["agy", "antigravity", "codex"]);
 
 /** The agents whose session is reported at start but whose log file appears only after the first
  *  reply: pi, and Oh My Pi (`omp`), its second name. Not on the wire, so named here by hand; the

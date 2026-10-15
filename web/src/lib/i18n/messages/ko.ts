@@ -362,6 +362,7 @@ export const ko: Dictionary = {
   "chat.scrollback.loading": "불러오는 중…",
   "chat.scrollback.noSessionReported":
     "{agent}가 Herdr에 세션을 보고하지 않았습니다. 에이전트용 Herdr 연동 패키지를 설치하거나 업데이트한 후 이 창에서 에이전트를 재시작하십시오.",
+  "chat.scrollback.noSessionBeforeMessage": "{agent}는 첫 메시지 후 세션을 보고합니다. 아직 기록이 없습니다. 응답 후에도 표시되지 않으면 Herdr 연동을 확인하세요.",
   "chat.scrollback.noSessionYet":
     "{agent}은(는) 첫 번째 메시지 이후에만 Herdr에 세션을 보고하므로 아직 기록이 없습니다. {agent}이(가) 응답한 후에도 이 메모가 계속 남아 있으면 {agent}에서 /hooks 명령어로 훅을 확인하거나, Herdr 연동을 업데이트하고 에이전트를 다시 시작하십시오.",
   "chat.stale.member": "이 머신에서는 오래된 Collie 버전이 실행 중입니다. 업데이트하면 여기에서 대화를 따라갈 수 있습니다.",

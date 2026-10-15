@@ -25,6 +25,16 @@ describe("agy transcript", () => {
     expect(JSON.stringify(entries)).not.toContain("private");
     expect(entries[2]!.parts).toEqual([{ kind: "text", text: "Synthetic output" }]);
   });
+  test("unwraps only the complete generated user envelope, keeping literal tags and whitespace", () => {
+    const user = "  Synthetic request\n\nKeep <ADDITIONAL_METADATA>literal</ADDITIONAL_METADATA>.  ";
+    const wrapped = "<USER_REQUEST>\n" + user + "\n</USER_REQUEST>\n<ADDITIONAL_METADATA>private plumbing</ADDITIONAL_METADATA>\n<USER_SETTINGS_CHANGE>private settings</USER_SETTINGS_CHANGE>";
+    expect(parseAgyTranscript(row(0, "USER_INPUT", { content: wrapped }))[0]!.parts)
+      .toEqual([{ kind: "text", text: user }]);
+    for (const content of [user, "<USER_REQUEST>\nliteral\n</USER_REQUEST>", wrapped + "\nactual user suffix"]) {
+      expect(parseAgyTranscript(row(0, "USER_INPUT", { content }))[0]!.parts).toEqual([{ kind: "text", text: content }]);
+    }
+    expect(parseAgyTranscript(row(0, "PLANNER_RESPONSE", { content: wrapped }))[0]!.parts).toEqual([{ kind: "text", text: wrapped }]);
+  });
   test("skips malformed rows and keeps stable step cursors under a bounded tail", () => {
     const text = ["null", "{", row(-1, "USER_INPUT", { content: "bad" }), row(7, "USER_INPUT", { content: "same" }), row(8, "USER_INPUT", { content: "same" })].join("\n");
     expect(parseAgyTranscript(text).map(e => e.uuid)).toEqual(["agy-7", "agy-8"]);

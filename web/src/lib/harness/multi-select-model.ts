@@ -124,6 +124,9 @@ export type MultiSelectModel =
        * because a different key on the same screen lands somewhere the button did not advertise.
        */
       advanceKeys?: string[];
+      /** Optional footer-named way to dismiss a checkbox question (agy: Escape skips it). */
+      cancelKeys?: string[];
+      cancelLabel?: string;
       /**
        * The toggle recipe (see {@link MultiSelectChoreography}). Compared by both comparators.
        */
@@ -244,6 +247,7 @@ export function multiSelectEquals(a: MultiSelectModel, b: MultiSelectModel): boo
       sameSteps(a, b) &&
       a.advanceLabel === b.advanceLabel &&
       sameOptionalKeys(a.advanceKeys, b.advanceKeys) &&
+      sameOptionalKeys(a.cancelKeys, b.cancelKeys) && a.cancelLabel === b.cancelLabel &&
       a.question === b.question &&
       a.toggle === b.toggle &&
       a.options.length === b.options.length &&
@@ -276,6 +280,7 @@ export function multiSelectIdentity(a: MultiSelectModel, b: MultiSelectModel): b
       sameSteps(a, b) &&
       a.advanceLabel === b.advanceLabel &&
       sameOptionalKeys(a.advanceKeys, b.advanceKeys) &&
+      sameOptionalKeys(a.cancelKeys, b.cancelKeys) && a.cancelLabel === b.cancelLabel &&
       a.question === b.question &&
       a.toggle === b.toggle &&
       a.options.length === b.options.length &&

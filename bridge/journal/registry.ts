@@ -109,7 +109,8 @@ export const AGENT_ALIASES = { omp: "pi", antigravity: "agy" } as const;
  *
  * `web/src/lib/journal-agents.ts` mirrors it by hand (registry.test.ts fails when the two drift).
  */
-export const REPORTS_SESSION_ON_FIRST_PROMPT: readonly string[] = ["codex"];
+// agy 1.3.5 likewise reports its UUID only after the first user prompt (live-probed).
+export const REPORTS_SESSION_ON_FIRST_PROMPT: readonly string[] = ["agy", "antigravity", "codex"];
 
 /**
  * Agents that draw a picture the live mirror cannot see, and whose journal records it (#292).

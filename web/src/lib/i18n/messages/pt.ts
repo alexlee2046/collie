@@ -298,6 +298,7 @@ export const pt: Dictionary = {
   "chat.scrollback.loadOlder": "Carregar anteriores",
   "chat.scrollback.loading": "Carregando…",
   "chat.scrollback.noSessionReported": "O {agent} não relatou uma sessão ao Herdr. Instale ou atualize a integração do Herdr para ele e reinicie o agente neste painel.",
+  "chat.scrollback.noSessionBeforeMessage": "{agent} informa a sessão após a primeira mensagem. O histórico ainda não está disponível. Se continuar ausente após uma resposta, verifique a integração com o Herdr.",
   "chat.scrollback.noSessionYet": "O {agent} só relata a sessão ao Herdr após sua primeira mensagem, então ainda não há histórico. Se esta nota continuar após o {agent} responder, revise os hooks com /hooks no {agent} ou atualize a integração do Herdr e reinicie o agente.",
   "chat.stale.member": "Esta máquina executa um Collie mais antigo. Atualize-o para acompanhar a conversa aqui.",
   "chat.savedCopy": "Cópia salva de {time}. O texto mais antigo está na bridge.",

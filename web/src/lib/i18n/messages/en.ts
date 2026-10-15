@@ -399,6 +399,7 @@ export const en = {
   "chat.scrollback.loading": "Loading…",
   "chat.scrollback.noSessionReported":
     "{agent} has not reported a session to Herdr. Install or update the Herdr integration for it, then restart the agent in this pane.",
+  "chat.scrollback.noSessionBeforeMessage": "{agent} reports its session after the first message. History is not available yet. If it stays unavailable after a reply, check the Herdr integration.",
   "chat.scrollback.noSessionYet":
     "{agent} reports its session to Herdr only after its first message, so there is no history yet. If this note stays after {agent} has replied, review its hooks with /hooks in {agent}, or update the Herdr integration and restart the agent.",
   // A 404 on the live-session route, and it is NOT "this pane has nothing to show" (ADR 0073 point

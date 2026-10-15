@@ -298,6 +298,7 @@ export const tr: Dictionary = {
   "chat.scrollback.loadOlder": "Daha eskileri yükle",
   "chat.scrollback.loading": "Yükleniyor…",
   "chat.scrollback.noSessionReported": "{agent}, Herdr'a bir oturum bildirmedi. Bunun için Herdr entegrasyonunu kurun veya güncelleyin, ardından bu bölmedeki aracıyı yeniden başlatın.",
+  "chat.scrollback.noSessionBeforeMessage": "{agent} oturumu ilk mesajdan sonra bildirir. Geçmiş henüz kullanılamıyor. Yanıttan sonra da görünmezse Herdr entegrasyonunu kontrol edin.",
   "chat.scrollback.noSessionYet": "{agent}, oturumunu Herdr'a yalnızca ilk mesajından sonra bildirir, bu nedenle henüz geçmiş yok. {agent} yanıt verdikten sonra bu not kalmaya devam ederse, {agent} içinde /hooks ile kancalarını inceleyin veya Herdr entegrasyonunu güncelleyip aracıyı yeniden başlatın.",
   "chat.stale.member": "Bu makine eski bir Collie çalıştırıyor. Konuşmayı buradan takip etmek için güncelleyin.",
   "chat.savedCopy": "{time} tarihli kayıtlı kopya. Daha eski metinler köprüdedir.",

@@ -138,6 +138,19 @@ export function extractInputDraft(lines: StyledLine[]): string | null {
   return box?.draft ?? null;
 }
 
+// `esc to cancel` also means STOP GENERATION on a normal busy composer. Keep the
+// send pre-flight closed there, but do not turn that into an unread-dialog card.
+export function modalOnScreen(lines: StyledLine[]): boolean {
+  const texts = lines.map(lineText);
+  while (texts.length && isBlank(texts[texts.length - 1]!)) texts.pop();
+  const tail = texts[texts.length - 1] ?? "";
+  const prior = texts[texts.length - 2] ?? "";
+  if (classifyFooter(tail) || classifyFooter(prior) || prior.trim().startsWith("↑/↓ Navigate · ")) return true;
+  if (!ESC_TO_CANCEL.test(tail)) return false;
+  const frame = [...texts.slice(0, -1), "? for shortcuts"];
+  return locateInputBox(frame, frame.length) === null;
+}
+
 export function hasInputBox(lines: StyledLine[]): boolean {
   const texts = lines.map(lineText);
   let end = lines.length;

@@ -115,7 +115,7 @@ describe("the frontend mirror", () => {
     const listed = [...(literal ?? "").matchAll(/"([a-z][a-z0-9-]*)"/g)].map((m) => m[1]);
     expect(listed.toSorted()).toEqual([...REPORTS_SESSION_ON_FIRST_PROMPT].toSorted());
     // Every one of them is an agent this build reads a journal for; the fact means nothing otherwise.
-    for (const agent of REPORTS_SESSION_ON_FIRST_PROMPT) expect(KNOWN_HARNESS_NAMES).toContain(agent);
+    for (const agent of REPORTS_SESSION_ON_FIRST_PROMPT) expect([...KNOWN_HARNESS_NAMES, ...Object.keys(AGENT_ALIASES)]).toContain(agent);
   });
 
   // #292: the phone reads the newest turn's picture after each finished turn only for these agents.

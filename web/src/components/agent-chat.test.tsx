@@ -1505,6 +1505,14 @@ describe("AgentChat — no session reported", () => {
     expect(note.closest("button")).toBeNull();
   });
 
+  it.each(["agy", "antigravity"])("does not blame missing integration before %s has a first message", (name) => {
+    const agent = { ...fixtureAgents[0]!, agent: name };
+    renderChat({ agent, agents: [agent] });
+    expect(noSessionNote()).not.toBeInTheDocument();
+    expect(screen.getByText(/reports its session after the first message/i)).toBeInTheDocument();
+    expect(screen.queryByText(/hooks in/i)).not.toBeInTheDocument();
+  });
+
   it("says nothing for an agent with no journal adapter — there is no transcript to promise", () => {
     const agent = { ...fixtureAgents[0]!, agent: "unknown-agent" }; // block grammars, no journal
     renderChat({ agent, agents: [agent] });

@@ -8,6 +8,7 @@ import { parseAnsi } from "@/lib/ansi";
 import { splitLines, type MultiSelectModel } from "@/lib/blocks";
 import { detectMultiSelect } from "@/lib/harness/claude/multi-select";
 import { MultiSelectBlock } from "./multi-select-block";
+import { detectMultiSelectRegion } from "@/lib/harness/agy/multi-select";
 
 // Anchored on this file's directory (not `new URL(import.meta.url)`, which Vite rewrites to an asset).
 const PANES_DIR = join(import.meta.dirname, "..", "fixtures", "panes");
@@ -19,6 +20,20 @@ function fixtureModel(name: string): MultiSelectModel {
 }
 
 describe("MultiSelectBlock — checkbox screen", () => {
+  it("agy has direct 44px checkbox/submit/skip controls and no write-in checkbox", async () => {
+    const model = detectMultiSelectRegion(splitLines(parseAnsi(fixtureText("agy--v135-multi-question.txt"))))!.model;
+    const onAction = vi.fn();
+    render(<MultiSelectBlock multi={model} onAction={onAction} />);
+    for (const control of [...screen.getAllByRole("checkbox"), ...screen.getAllByRole("button")]) {
+      expect(control).toHaveClass("min-h-11");
+    }
+    expect(screen.queryByRole("checkbox", { name: /Write-in/ })).not.toBeInTheDocument();
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("checkbox", { name: "Green" }));
+    expect(onAction).toHaveBeenLastCalledWith({ kind: "toggle", n: 2 });
+    await user.click(screen.getByRole("button", { name: "Skip" }));
+    expect(onAction).toHaveBeenLastCalledWith({ kind: "cancel" });
+  });
   it("renders the question, each option as a checkbox with its key badge, and the checked state", () => {
     const model = fixtureModel("claude--select-multiselect-checked.txt");
     render(<MultiSelectBlock multi={model} onAction={vi.fn()} />);

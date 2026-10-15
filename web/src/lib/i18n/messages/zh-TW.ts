@@ -351,6 +351,7 @@ export const zhTW: Dictionary = {
   "chat.scrollback.loading": "正在載入…",
   "chat.scrollback.noSessionReported":
     "{agent} 尚未向 Herdr 回報工作階段。請安裝或更新對應的 Herdr 整合，並在目前窗格重新啟動該 Agent。",
+  "chat.scrollback.noSessionBeforeMessage": "{agent} 會在傳送第一則訊息後回報工作階段，目前尚無歷史記錄。如果收到回覆後仍無法使用，請檢查 Herdr 整合。",
   "chat.scrollback.noSessionYet":
     "{agent} 僅會在發送第一則訊息後向 Herdr 回報其工作階段，因此目前尚未有歷程記錄。若 {agent} 回覆後此提示仍未消失，請在 {agent} 中使用 /hooks 檢查其掛鉤，或更新 Herdr 整合並重新啟動代理程式。",
   "chat.stale.member": "此主機執行的 Collie 版本較舊。更新後即可在這裡跟隨對話。",
