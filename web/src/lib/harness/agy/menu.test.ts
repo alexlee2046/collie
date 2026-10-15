@@ -26,7 +26,7 @@ describe("agy 1.3.5 measured menu keys", () => {
     it(`${adapter.agent} renders a guarded menu and refuses composer typing`, () => {
       for (const name of ["slash", "multi-question", "multi-red-green"]) {
         const lines = parse(capture(name));
-        expect(adapter.buildBlocks(lines).some((b) => b.kind === "menu")).toBe(true);
+        expect(adapter.buildBlocks(lines).some((b) => b.kind === (name === "slash" ? "menu" : "multi-select"))).toBe(true);
         expect(adapter.composerReady!(lines)).toBe(false);
       }
     });

@@ -1747,6 +1747,10 @@ Choreography, live browser evidence and unsupported shapes: `lib/harness/omp/ASK
   are the most stable discriminator ("Enter to select/confirm", "Esc to cancel").
 
 
+## agy 1.3.5 checkbox choreography (verified 2026-10-16)
+
+`agy--v135-multi-*.txt` and `agy--v135-slash*.txt` are isolated-pane captures with the account/banner removed. On the checkbox question, digit `2` checks Green and moves the pointer there; another `2` unchecks it. Digit `3` checks Blue. This is the existing native multi-select **digit** recipe, not a pointer-plus-Enter recipe. `Enter` submits the entire checked set, `Escape` skips; both are freshly bound writes. The write-in row changes the footer to `enter Write-in` and is never a native checkbox. Unknown/wrapped row shapes retain the guarded generic menu or raw fallback. Slash arrows and Tab completion were separately read back in the real pane. A fresh agy process reports no session before its first user prompt; afterwards the reported UUID addresses its transcript.
+
 ## agy corpus (captured 2026-08-26, Antigravity CLI 1.1.17, sandbox panes)
 
 Byte-faithful `format:ansi` captures from running sandbox `agy` panes via `scripts/capture-fixture.sh <paneId> <name> 300`. Fastfetch system scrollback was trimmed, and all session identities were sanitized with length-preserving substitutions so row padding and column alignments stay byte-identical: account email (`developer.user@corp.test`) and session plan brain UUIDs (`00000000-0000-7000-8000-000000000000`).

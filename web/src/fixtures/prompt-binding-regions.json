@@ -851,9 +851,9 @@
   },
   {
     "fixture": "agy--v135-multi-red.txt",
-    "detector": "menu",
+    "detector": "multi-select",
     "agent": "agy",
-    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n> 1. [x] Red\n  2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
+    "region": "Question 1/1: Which test colors?\n\n> 1. [x] Red\n  2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
   },
   {
     "fixture": "agy--v135-slash-down.txt",
@@ -863,15 +863,15 @@
   },
   {
     "fixture": "agy--v135-multi-down.txt",
-    "detector": "menu",
+    "detector": "multi-select",
     "agent": "agy",
-    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n  1. [x] Red\n> 2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
+    "region": "Question 1/1: Which test colors?\n\n  1. [x] Red\n> 2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
   },
   {
     "fixture": "agy--v135-multi-question.txt",
-    "detector": "menu",
+    "detector": "multi-select",
     "agent": "agy",
-    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n> 1. [ ] Red\n  2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
+    "region": "Question 1/1: Which test colors?\n\n> 1. [ ] Red\n  2. [ ] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
   },
   {
     "fixture": "agy--v135-slash.txt",
@@ -881,8 +881,8 @@
   },
   {
     "fixture": "agy--v135-multi-red-green.txt",
-    "detector": "menu",
+    "detector": "multi-select",
     "agent": "agy",
-    "region": "────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────\n\nQuestion 1/1: Which test colors?\n\n  1. [x] Red\n> 2. [x] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
+    "region": "Question 1/1: Which test colors?\n\n  1. [x] Red\n> 2. [x] Green\n  3. [ ] Blue\n  4. Write-in...\n\n  ↑/↓ Navigate · space Toggle · enter Submit · esc Skip"
   }
 ]

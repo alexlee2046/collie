@@ -404,6 +404,7 @@ export function emittableKeys(block: Block): string[] | null {
           "Down",
           "Enter",
           ...(block.multi.advanceKeys ?? []),
+          ...(block.multi.cancelKeys ?? []),
         ];
       }
       return [...reviewActionKeys(block.multi), ...(block.multi.backKeys ?? [])];
@@ -453,7 +454,7 @@ function reviewActionKeys(multi: Extract<MultiSelectModel, { phase: "review" }>)
 export function declaredKeyPlans(block: Block): { field: string; keys: string[] }[] {
   const plans: { field: string; keys: string[] | undefined }[] = [];
   if (block.kind === "multi-select" && block.multi.phase === "checkbox") {
-    plans.push({ field: "advanceKeys", keys: block.multi.advanceKeys });
+    plans.push({ field: "advanceKeys", keys: block.multi.advanceKeys }, { field: "cancelKeys", keys: block.multi.cancelKeys });
   }
   if (block.kind === "multi-select" && block.multi.phase === "review") {
     plans.push(

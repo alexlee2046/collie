@@ -103,7 +103,7 @@ function CheckboxPhase({
         {multi.options.map((option) => {
           const id = `opt-${option.n}`;
           const busy = sending === id;
-          const tone = busy ? "busy" : "default";
+          const tone = busy ? "busy" : option.checked ? "selected" : "default";
           return (
             <button
               key={option.n}
@@ -112,7 +112,7 @@ function CheckboxPhase({
               aria-checked={option.checked}
               disabled={locked}
               onClick={() => onPress(id, { kind: "toggle", n: option.n })}
-              className={optionSurface(tone)}
+              className={cn(optionSurface(tone), "min-h-11")}
             >
               {/* The checkbox reflects the TERMINAL state (option.checked), never a local guess. */}
               <span
@@ -153,11 +153,20 @@ function CheckboxPhase({
         // child-text swap on a focused control is not reliably re-announced.
         aria-label={multi.advanceLabel}
         onClick={() => onPress("advance", { kind: "advance" })}
-        className="font-content flex w-full items-center justify-center gap-2 rounded-lg border border-primary/60 bg-primary/15 px-3 py-2 text-sm font-medium text-foreground transition-colors active:bg-primary/25 disabled:opacity-60"
+        className="font-content flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-primary/60 bg-primary/15 px-3 py-2 text-sm font-medium text-foreground transition-colors active:bg-primary/25 disabled:opacity-60"
       >
         {sending === "advance" ? <SpinnerSm /> : null}
         {multi.advanceLabel}
       </button>
+
+      {multi.cancelKeys && (
+        <button type="button" disabled={locked}
+          onClick={() => onPress("cancel", { kind: "cancel" })}
+          className="font-content flex min-h-11 w-full items-center justify-center gap-2 rounded-lg border border-border px-3 text-sm text-muted-foreground disabled:opacity-60">
+          {sending === "cancel" ? <SpinnerSm /> : null}
+          {multi.cancelLabel ?? t("dialog.cancel")}
+        </button>
+      )}
 
       {/* "Chat about this" ABORTS the tool — de-emphasised, apart from the answers (like the wizard). */}
       {multi.escape ? (

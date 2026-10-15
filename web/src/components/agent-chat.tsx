@@ -918,7 +918,7 @@ export function AgentChat({
   const noSessionReported =
     sessionLog.capable && hasJournalAdapter(agent?.agent) && !agent?.hasSession;
   const noSessionKey = reportsSessionOnFirstPrompt(agent?.agent)
-    ? "chat.scrollback.noSessionYet"
+    ? agent?.agent === "codex" ? "chat.scrollback.noSessionYet" : "chat.scrollback.noSessionBeforeMessage"
     : "chat.scrollback.noSessionReported";
   // ── THE PANE'S SECOND BODY: CHAT (M41/11) ───────────────────────────────────
   //

@@ -9,6 +9,19 @@ import { clamp, MAX_TEXT_CHARS, stripAnsi, summarizeToolInput } from "./text.ts"
 import { classifyToolCall } from "./tool-call.ts";
 import type { AgentSessionRef, JournalAdapter, TranscriptEntry, TranscriptPart, TranscriptSource } from "./types.ts";
 
+// 1.3.5 wraps USER_INPUT in a request envelope followed by generated metadata. Only
+// unwrap that complete shape; literal tags in ordinary user/assistant text stay verbatim.
+function userRequest(content: string): string {
+  const open = "<USER_REQUEST>\n";
+  const close = "\n</USER_REQUEST>";
+  if (!content.startsWith(open)) return content;
+  const end = content.lastIndexOf(close);
+  if (end < open.length) return content;
+  const tail = content.slice(end + close.length);
+  if (!/^\s*<ADDITIONAL_METADATA>[\s\S]*?<\/ADDITIONAL_METADATA>(?:\s*<USER_SETTINGS_CHANGE>[\s\S]*?<\/USER_SETTINGS_CHANGE>)?\s*$/.test(tail)) return content;
+  return content.slice(open.length, end);
+}
+
 export function createAgyReducer(): RowReducer {
   const unknown = createUnknownCounter({
     rows: ["USER_INPUT", "PLANNER_RESPONSE", "GENERIC", "SYSTEM_MESSAGE", "CHECKPOINT"],
@@ -35,7 +48,8 @@ export function createAgyReducer(): RowReducer {
       if (role === undefined) return NO_CHANGE;
       const parts: TranscriptPart[] = [];
       if (typeof row.content === "string" && row.content.trim() !== "") {
-        const clipped = clamp(stripAnsi(row.content), MAX_TEXT_CHARS);
+        const content = role === "user" ? userRequest(row.content) : row.content;
+        const clipped = clamp(stripAnsi(content), MAX_TEXT_CHARS);
         if (Array.isArray(row.truncated_fields) && row.truncated_fields.includes("content")) clipped.truncated = true;
         parts.push({ kind: "text", ...clipped });
       }

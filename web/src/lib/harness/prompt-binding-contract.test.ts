@@ -96,8 +96,9 @@ interface FoundRegion {
 /** The region and column range a harness's adapter binds a prompt-select to, through the public
  *  dispatch the renderer and the race guard use. Only prompt-select rows carry an agent today. */
 function adapterRegion(lines: StyledLine[], agent: string): FoundRegion | null {
-  const card = buildBlocks(lines, { agent }).find((block) => block.kind === "prompt-select" || block.kind === "menu");
+  const card = buildBlocks(lines, { agent }).find((block) => block.kind === "prompt-select" || block.kind === "menu" || block.kind === "multi-select");
   if (card?.kind === "menu") return { detector: "menu", region: card.menu.signature };
+  if (card?.kind === "multi-select") return { detector: "multi-select", region: card.multi.regionSignature };
   if (card?.kind !== "prompt-select") return null;
   const found: FoundRegion = { detector: "prompt-select", region: card.prompt.signature };
   if (card.prompt.bindColumns !== undefined) found.bindColumns = card.prompt.bindColumns;

@@ -63,7 +63,7 @@ export function KeyBadge({ children, tone = "default" }: { children: ReactNode; 
  *  purpose (DESIGN.md §7 of ADR 0056): no border, muted colour, small text, so neither one competes
  *  with the card's real actions. */
 const ghostControl =
-  "flex items-center gap-1 self-end rounded-md px-1.5 py-0.5 text-[11px] text-muted-foreground transition-colors active:bg-muted";
+  "flex min-h-11 min-w-11 items-center gap-1 self-end rounded-md px-1.5 py-0.5 text-[11px] text-muted-foreground transition-colors active:bg-muted";
 
 /**
  * The enclosing surface for an up-levelled dialog: a bordered, filled panel that lifts the WHOLE

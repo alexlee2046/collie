@@ -363,6 +363,7 @@ export const ja: Dictionary = {
   "chat.scrollback.loading": "読み込み中…",
   "chat.scrollback.noSessionReported":
     "{agent} のセッションが Herdr に報告されていません。Herdr 連携をインストールまたは更新し、このペインでエージェントを再起動してください。",
+  "chat.scrollback.noSessionBeforeMessage": "{agent} は最初のメッセージの後にセッションを報告します。履歴はまだありません。返信後も表示されない場合は、Herdr 連携を確認してください。",
   "chat.scrollback.noSessionYet":
     "{agent}は最初のメッセージの送信後にのみセッションをHerdrに報告するため、履歴はまだありません。{agent}が返信した後もこのメッセージが表示され続ける場合は、{agent}で/hooksを実行してフックを確認するか、Herdr連携を更新してエージェントを再起動してください。",
   "chat.stale.member": "このマシンでは古い Collie が動作しています。更新すると、ここで会話を追えます。",

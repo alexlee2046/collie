@@ -2,7 +2,8 @@ import { trimTrailingBlank, type Block, type StyledLine } from "../../blocks";
 import type { HarnessAdapter } from "../types";
 import { detectPromptSelectRegion } from "./prompt-select";
 import { detectMenuRegion } from "./menu";
-import { extractInputDraft, extractStatusLines, hasInputBox, stripChrome } from "./chrome";
+import { extractInputDraft, extractStatusLines, hasInputBox, modalOnScreen, stripChrome } from "./chrome";
+import { detectMultiSelectRegion } from "./multi-select";
 
 export function agyBuildBlocks(lines: StyledLine[]): Block[] {
   const region = detectPromptSelectRegion(lines);
@@ -14,6 +15,14 @@ export function agyBuildBlocks(lines: StyledLine[]): Block[] {
     return blocks;
   }
 
+  const multi = detectMultiSelectRegion(lines);
+  if (multi) {
+    const before = trimTrailingBlank(lines.slice(0, multi.startLine));
+    return [
+      ...(before.length ? [{ kind: "raw" as const, lines: before }] : []),
+      { kind: "multi-select", multi: multi.model, lines: lines.slice(multi.startLine) },
+    ];
+  }
   const menu = detectMenuRegion(lines);
   if (menu) {
     const before = trimTrailingBlank(lines.slice(0, menu.startLine));
@@ -29,6 +38,7 @@ export { extractStatusLines, extractInputDraft };
 
 export const agyAdapter: HarnessAdapter = {
   agent: "agy",
+  modalOnScreen,
   buildBlocks: agyBuildBlocks,
   extractStatusLines,
   extractInputDraft,
@@ -41,6 +51,7 @@ export const agyAdapter: HarnessAdapter = {
 
 export const antigravityAdapter: HarnessAdapter = {
   agent: "antigravity",
+  modalOnScreen,
   buildBlocks: agyBuildBlocks,
   extractStatusLines,
   extractInputDraft,
