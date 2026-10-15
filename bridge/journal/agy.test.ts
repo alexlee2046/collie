@@ -4,6 +4,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { AgyTranscriptSource, createAgyReducer, parseAgyTranscript } from "./agy.ts";
 import { PENDING_MAX } from "./reduce.ts";
+import { pageEntries } from "./store.ts";
 
 const row = (step_index: number, type: string, fields = {}) => JSON.stringify({ step_index, type, status: "DONE", created_at: "2026-10-15T00:00:00Z", ...fields });
 const id = "11111111-2222-4333-8444-555555555555";
@@ -51,6 +52,20 @@ describe("agy transcript", () => {
     expect(replay.added[0]!.uuid).toBe(first.uuid);
     expect(replay.added[0]).not.toBe(first);
     expect(first.parts).toEqual([{ kind: "text", text: "old" }]);
+  });
+  test("history upserts steps re-emitted after eviction without moving pagination cursors", () => {
+    const rows = Array.from({ length: PENDING_MAX + 1 }, (_, step) =>
+      row(step, "PLANNER_RESPONSE", { content: "initial" }));
+    rows.push(row(0, "PLANNER_RESPONSE", { content: "updated" }));
+    rows.push(row(0, "PLANNER_RESPONSE", { content: "final" }));
+    const entries = parseAgyTranscript(rows.join("\n"));
+    expect(entries).toHaveLength(PENDING_MAX + 1);
+    expect(new Set(entries.map(entry => entry.uuid)).size).toBe(entries.length);
+    expect(entries[0]!.uuid).toBe("agy-0");
+    expect(entries[0]!.parts).toEqual([{ kind: "text", text: "final" }]);
+    expect(pageEntries(entries, { limit: 2 }).window.map(entry => entry.uuid))
+      .toEqual([`agy-${PENDING_MAX - 1}`, `agy-${PENDING_MAX}`]);
+    expect(pageEntries(entries, { limit: 2, before: "agy-0" }).window).toEqual([]);
   });
   test("preserves upstream truncation and counts unknown row types", () => {
     const reducer = createAgyReducer();

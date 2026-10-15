@@ -4,7 +4,7 @@
 import { join } from "node:path";
 import type { JsonValue } from "../json.ts";
 import { containedRealpath, loadTail, readSinceFile, rootList, statFile } from "./files.ts";
-import { createUnknownCounter, NO_CHANGE, noQueue, parseWith, rememberPending, type RowReducer } from "./reduce.ts";
+import { createUnknownCounter, NO_CHANGE, noQueue, rememberPending, type RowReducer } from "./reduce.ts";
 import { clamp, MAX_TEXT_CHARS, stripAnsi, summarizeToolInput } from "./text.ts";
 import { classifyToolCall } from "./tool-call.ts";
 import type { AgentSessionRef, JournalAdapter, TranscriptEntry, TranscriptPart, TranscriptSource } from "./types.ts";
@@ -65,7 +65,14 @@ export function createAgyReducer(): RowReducer {
 }
 
 export function parseAgyTranscript(text: string): TranscriptEntry[] {
-  return parseWith(createAgyReducer(), text);
+  const reducer = createAgyReducer();
+  // History retains the whole bounded input, unlike the live reducer's recent-step index.
+  // Re-emitted steps must replace their earlier value without moving their cursor position.
+  const entries = new Map<string, TranscriptEntry>();
+  for (const line of text.split("\n")) {
+    for (const entry of reducer.push(line).added) entries.set(entry.uuid, entry);
+  }
+  return [...entries.values()];
 }
 
 export class AgyTranscriptSource implements TranscriptSource {
